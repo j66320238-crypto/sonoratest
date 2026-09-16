@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>StreamVerse — Watch Movies, TV Shows, Anime &amp; Live TV Free</title>
+<meta name="description" content="StreamVerse — stream movies, TV shows, anime & live TV in HD. Playlists, episodes, quality control, speed control, resume watching — all in one place." />
+<meta name="theme-color" content="#07070c" />
+<meta name="color-scheme" content="dark light" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta property="og:title" content="StreamVerse — Watch Movies, TV Shows, Anime & Live TV" />
+<meta property="og:description" content="Browse and stream trending movies, TV shows, anime and live TV. Playlists, seasons, episodes, watchlist, quality & speed controls." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e50914'/%3E%3Cpath d='M26 20l18 12-18 12z' fill='white'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://image.tmdb.org" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="stylesheet" href="style.css?v=12.14.1" />
+</head>
+<body>
+<a class="skip-link" href="#content" data-i18n="skipContent">Skip to content</a>
+<div class="bg-glow"></div>
+
+<header id="navbar" class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="#home" data-nav="home" aria-label="StreamVerse home">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="brand-name">STREAM<span class="accent">VERSE</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#home" data-nav="home" class="active" data-i18n="home">Home</a>
+      <a href="#movies" data-nav="movies" data-i18n="movies">Movies</a>
+      <a href="#tv" data-nav="tv" data-i18n="tvShows">TV Shows</a>
+      <a href="#anime" data-nav="anime" data-i18n="anime">Anime</a>
+      <a href="#drama" data-nav="drama" data-i18n="drama">Drama</a>
+      <a href="#live" data-nav="live" data-i18n="liveTV">
+        <span class="live-dot"></span> Live TV
+      </a>
+      <a href="#playlists" data-nav="playlists" data-i18n="playlists">Playlists</a>
+      <a href="#mylist" data-nav="mylist" class="mylist-link" data-i18n="myList">My List</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn search-toggle" id="searchToggle" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <div class="search-wrap" id="searchWrap">
+        <svg class="search-ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" placeholder="Search movies, shows, anime…" data-i18n-placeholder="searchPlaceholder" aria-label="Search" enterkeyhint="search" />
+        <button id="searchClear" class="search-clear" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <!-- v12.13.1: recent searches, shown when the box is focused and empty -->
+        <div class="recent-searches hidden" id="recentSearches"></div>
+      </div>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu"></div>
+</header>
+
+<section class="hero" id="hero" aria-label="Featured">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" id="heroContent">
+    <div class="hero-tags" id="heroTags"></div>
+    <h1 class="hero-title" id="heroTitle">StreamVerse</h1>
+    <div class="hero-meta" id="heroMeta"></div>
+    <p class="hero-desc" id="heroDesc">Discover movies, TV shows, anime and live TV — then watch them instantly.</p>
+    <div class="hero-btns">
+      <button class="btn btn-play" id="heroPlay" data-i18n="watchNow">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch Now
+      </button>
+      <button class="btn btn-more" id="heroInfo" data-i18n="moreInfo">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        More Info
+      </button>
+      <button class="btn btn-icon-only" id="heroList" title="Add to My List" aria-label="Add to My List">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="hero-nav">
+    <button class="hero-arrow" id="heroPrev" aria-label="Previous"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+    <div class="hero-dots" id="heroDots"></div>
+    <button class="hero-arrow" id="heroNext" aria-label="Next"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<main class="content" id="content">
+  <section class="row-section" data-row="continue" hidden>
+    <div class="row-head"><h2 class="row-title" data-i18n="continueWatching">Continue Watching</h2></div>
+    <div class="card-row" id="rowContinueRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="trendingNow">Trending Now</h2><span class="row-count" id="rowTrendingCount"></span></div>
+    <div class="card-row" id="rowTrendingRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="popularMovies">Popular Movies</h2></div>
+    <div class="card-row" id="rowPopularRow"></div>
+  </section>
+  <section class="row-section hindi-originals-row">
+    <div class="row-head"><h2 class="row-title" data-i18n="hindiOriginalsRow">Hindi Originals</h2><span class="row-count" data-i18n="hindiAudioGuaranteed">Original Hindi audio</span></div>
+    <div class="card-row" id="rowHindiRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="topRatedMovies">Top Rated Movies</h2></div>
+    <div class="card-row" id="rowTopRatedRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="popularTV">Popular TV Shows</h2></div>
+    <div class="card-row" id="rowTvRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="topRatedTV">Top Rated TV</h2></div>
+    <div class="card-row" id="rowTvTopRow"></div>
+  </section>
+  <section class="row-section drama-promo hidden" id="dramaPromo">
+    <div class="row-head"><h2 class="row-title" data-i18n="asianDramas">K-Drama &amp; Asian Dramas</h2><a href="#drama" data-nav="drama" class="see-all" data-i18n="seeAll">See all →</a></div>
+    <div class="card-row" id="rowDramaRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="topAnime">Top Anime</h2></div>
+    <div class="card-row" id="rowAnimeRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="airingNow">Airing Now</h2></div>
+    <div class="card-row" id="rowAiringRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="comingSoon">Coming Soon</h2></div>
+    <div class="card-row" id="rowUpcomingRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="horrorPicks">Horror Picks</h2></div>
+    <div class="card-row" id="rowHorrorRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="comedyNights">Comedy Nights</h2></div>
+    <div class="card-row" id="rowComedyRow"></div>
+  </section>
+  <section class="row-section">
+    <div class="row-head"><h2 class="row-title" data-i18n="actionAdventure">Action &amp; Adventure</h2></div>
+    <div class="card-row" id="rowActionRow"></div>
+  </section>
+</main>
+
+<!-- ===== BROWSE / RESULTS ===== -->
+<div class="results-view hidden" id="resultsView">
+  <div class="results-head">
+    <h2 id="resultsTitle">Browse</h2>
+    <button class="btn btn-ghost sm" id="resultsBack" data-i18n="back">Back</button>
+  </div>
+  <div class="cat-chips hidden" id="genreChips"></div>
+  <div class="smart-search-banner hidden" id="searchIntentBanner"></div>
+  <div class="results-grid" id="resultsGrid" style="margin-top:16px"></div>
+  <div class="results-empty hidden" id="resultsEmpty" data-i18n="noTitles">No titles found. Try something else.</div>
+  <button class="btn btn-ghost sm hidden" id="resultsMore" style="margin:24px auto;display:block" data-i18n="loadMore">Load more</button>
+</div>
+
+<!-- ===== MY LIST ===== -->
+<div class="results-view hidden" id="mylistView">
+  <div class="results-head"><h2 data-i18n="myList">My List</h2></div>
+  <div class="results-grid" id="mylistGrid"></div>
+  <div class="results-empty hidden" id="mylistEmpty">
+    <p style="font-size:15px;color:var(--muted)" data-i18n="emptyMyList">Your list is empty. Add a title to save it here.</p>
+  </div>
+</div>
+
+<!-- ===== PLAYLISTS ===== -->
+<div class="results-view hidden" id="playlistsView">
+  <div class="results-head">
+    <h2 data-i18n="myPlaylists">My Playlists</h2>
+    <button class="btn btn-play sm" id="createPlaylistBtn" data-i18n="newPlaylist">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      New Playlist
+    </button>
+  </div>
+  <div id="playlistsList"></div>
+</div>
+
+<div class="results-view hidden" id="playlistDetailView">
+  <div class="results-head">
+    <div>
+      <button class="btn btn-ghost sm" id="plBack" data-i18n="backPlaylists">‹ Back to playlists</button>
+      <h2 id="plTitle" style="margin-top:12px"></h2>
+      <p class="pl-count" id="plCount"></p>
+    </div>
+    <button class="btn btn-ghost sm" id="plRename" data-i18n="rename">Rename</button>
+  </div>
+  <div class="results-grid" id="plGrid" style="margin-top:12px"></div>
+  <div class="results-empty hidden" id="plEmpty" style="padding:50px 20px">
+    <p style="color:var(--muted);font-size:14px" data-i18n="emptyPlaylist">This playlist is empty. Browse titles and add one to this playlist.</p>
+  </div>
+</div>
+
+<!-- ===== LIVE TV ===== -->
+<div class="live-view hidden" id="liveView">
+  <div class="live-head">
+    <div>
+      <h2 data-i18n="liveTV"><span class="live-dot big"></span> Live TV</h2>
+      <p class="live-sub" data-i18n="liveSub">24/7 channels — free, no signup. Powered by public HLS streams.</p>
+    </div>
+  </div>
+  <div class="live-toolbar">
+    <div class="live-search">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="liveSearch" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Search channels — Aaj Tak, Star, Sony…" data-i18n-placeholder="liveSearchPh" aria-label="Search channels">
+      <button class="live-search-clear hidden" id="liveSearchClear" aria-label="Clear search">&times;</button>
+    </div>
+    <select id="liveCountry" class="pc-select live-country" aria-label="Country"><option value="">All countries</option></select>
+    <select id="liveLang" class="pc-select live-country" aria-label="Language"><option value="">All languages</option></select>
+  </div>
+  <div class="cat-chips" id="liveChips"></div>
+  <div class="live-count" id="liveCount"></div>
+  <div class="live-grid" id="liveGrid"></div>
+  <div class="live-empty hidden" id="liveEmpty">
+    <p data-i18n="liveNoMatch">No channels match that search.</p>
+  </div>
+  <button class="btn btn-ghost live-more hidden" id="liveMore" data-i18n="loadMore">Load more</button>
+</div>
+
+<footer class="footer">
+  <div class="footer-live" id="footerLive" title="People watching right now">
+    <span class="live-dot"></span>
+    <span class="footer-live-num" id="onlineCount">—</span>
+    <span class="footer-live-label" data-i18n="watchingNow">watching now</span>
+  </div>
+  <p class="footer-brand">STREAMVERSE</p>
+  <p data-i18n="footerTagline">Movies · TV Shows · Anime · Dramas · Live TV · Playlists</p>
+  <p class="footer-meta">Metadata &amp; imagery: TMDB, AniList and Jikan. Anime uses the regular title player when a matching TMDB entry exists; live channels use public HLS streams. StreamVerse does not host video files.</p>
+  <nav class="footer-links" aria-label="Footer">
+    <a href="#" data-nav="home" data-i18n="home">Home</a>
+    <a href="#" data-nav="movies" data-i18n="movies">Movies</a>
+    <a href="#" data-nav="tv" data-i18n="tvShows">TV Shows</a>
+    <a href="#" data-nav="anime" data-i18n="anime">Anime</a>
+    <a href="#" data-nav="drama" data-i18n="drama">Drama</a>
+    <a href="#" data-nav="live" data-i18n="liveTV">Live TV</a>
+    <a href="#" data-nav="playlists" data-i18n="playlists">Playlists</a>
+    <a href="#" data-nav="mylist" data-i18n="myList">My List</a>
+  </nav>
+  <div class="developer-contact">
+    <span>Built with care by the developer</span>
+    <a href="https://t.me/botdeveloper08" target="_blank" rel="noopener" aria-label="Contact developer on Telegram">
+      <span class="telegram-icon">✈</span> Telegram: @botdeveloper08
+    </a>
+  </div>
+</footer>
+
+<!-- ===== DETAIL MODAL ===== -->
+<div class="modal-overlay hidden" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===== STREAMING PLAYER ===== -->
+<div class="player-overlay hidden" id="playerModal" role="dialog" aria-modal="true" aria-label="Player">
+  <div class="player" id="watchPlayer">
+    <div class="player-top">
+      <div class="player-title" id="playerTitle">Now Playing</div>
+      <div class="player-top-actions">
+        <button class="player-btn" id="playerPlaylistAdd" title="Add to playlist">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h9"/><path d="M3 10h18M8 18h4M8 14h7M19 16v6M16 19h6"/></svg>
+        </button>
+        <a class="player-btn" id="playerExt" href="#" target="_blank" rel="noopener" title="Open source in new tab">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+        <button class="player-btn player-audio-btn" id="playerAudioBtn" title="Audio language" aria-label="Choose audio language" data-i18n="audio">Audio</button>
+        <button class="player-btn" id="playerDownloadBtn" title="Download" aria-label="Download this video">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        </button>
+        <button class="player-btn" id="playerFs" title="Fullscreen" aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        <button class="modal-close light" id="playerClose" aria-label="Close player">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="player-download-pop hidden" id="playerDownloadPop" role="dialog" aria-label="Download options">
+      <div class="player-language-head"><span data-i18n="download">Download</span><button id="playerDownloadClose" type="button" aria-label="Close download menu">×</button></div>
+      <div class="player-download-body" id="playerDownloadBody">
+        <div class="player-download-row">
+          <label class="player-download-label" for="dlQuality" data-i18n="quality">Quality</label>
+          <select class="player-download-select" id="dlQuality"></select>
+        </div>
+        <div class="player-download-row" id="dlAudioRow">
+          <label class="player-download-label" for="dlAudio" data-i18n="audio">Audio</label>
+          <select class="player-download-select" id="dlAudio"></select>
+        </div>
+        <button class="player-download-go" id="dlStart" type="button" data-i18n="startDownload">Start download</button>
+        <p class="player-language-note" id="dlNote" data-i18n="downloadNote">The file saves as .ts and plays in VLC or MX Player. Larger qualities take longer.</p>
+      </div>
+    </div>
+    <div class="player-language-pop hidden" id="playerLanguagePop" role="dialog" aria-label="Available audio languages">
+      <div class="player-language-head"><span data-i18n="preferredAudio">Preferred audio</span><button id="playerLanguageClose" type="button" aria-label="Close language menu">×</button></div>
+      <div class="player-language-options" id="playerLanguageOptions"></div>
+      <p class="player-language-note" data-i18n="audioNote">Audio tracks depend on the selected provider. Use the provider player menu if your preference is unavailable.</p>
+    </div>
+
+    <div class="player-feed" id="playerFeed">
+      <section class="player-page player-stage" id="playerStage" aria-label="Now playing">
+      <div class="player-video-wrap" id="playerVideoWrap">
+        <iframe id="playerFrame" class="player-frame" allowfullscreen
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                frameborder="0" scrolling="no"
+                referrerpolicy="origin"></iframe>
+        <!-- Native player: used when a direct HLS stream is available, which is
+             what makes real quality / audio / subtitle switching possible. -->
+        <video id="playerVideo" class="player-native hidden" playsinline controls
+               crossorigin="anonymous" preload="metadata"></video>
+        <button class="skip-intro hidden" id="playerSkipIntro" data-i18n="skipIntro">Skip intro</button>
+        <!-- v12.13.1: keyboard shortcut cheatsheet, toggled with "?" -->
+        <div class="shortcut-help hidden" id="shortcutHelp" role="dialog" aria-modal="false" aria-label="Keyboard shortcuts">
+          <div class="sh-card">
+            <div class="sh-head">
+              <span id="shortcutHelpTitle">Keyboard shortcuts</span>
+              <button class="sh-close" id="shortcutHelpClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <ul class="sh-list" id="shortcutHelpList"></ul>
+          </div>
+        </div>
+        <div class="player-loading" id="playerLoading">
+          <div class="pl-spinner"></div>
+          <div class="pl-text">Loading stream…</div>
+          <div class="pl-sub" id="plSourceName"></div>
+        </div>
+      </div>
+      <button class="player-nextsrc" id="playerNextSrc" title="Try next server" data-i18n="nextServer">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        Next server
+      </button>
+      <div class="player-inline-recommendations hidden" id="playerInlineRecommendations" aria-label="Recommended videos below the player">
+        <div class="inline-rec-head">
+          <div><span class="inline-rec-kicker" data-i18n="nextUpKicker">NEXT UP</span><strong data-i18n="recommended">Recommended for you</strong></div>
+          <span class="inline-rec-head-actions">
+            <button class="inline-rec-open" id="inlineRecOpen" type="button" data-i18n="seeAllUp">See all ↑</button>
+            <button class="inline-rec-close" id="inlineRecClose" type="button" aria-label="Hide recommendations" title="Hide">✕</button>
+          </span>
+        </div>
+        <div class="inline-rec-row" id="playerInlineRecRow"></div>
+      </div>
+      <div class="feed-swipe-hint" id="feedSwipeHint" aria-hidden="true">
+        <span data-i18n="swipeRecommendations">Swipe up for recommendations</span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+      </div>
+      </section>
+
+      <section class="player-page player-controls" id="playerControls" aria-label="Recommendations and player controls">
+      <div class="feed-page-head">
+        <div><span class="feed-kicker" data-i18n="nextUpKicker">UP NEXT</span><strong data-i18n="recommended">Recommended for you</strong></div>
+        <span class="feed-page-hint" data-i18n="swipeDown">Swipe down to return</span>
+      </div>
+      <!-- Tap to unmute banner -->
+      <div class="unmute-banner" id="unmuteBanner">
+        <button class="unmute-btn" id="unmuteBtn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span data-i18n="tapToUnmute">Tap to unmute</span>
+        </button>
+        <span class="unmute-hint" data-i18n="unmuteHint">If sound is muted, tap the speaker icon inside the video</span>
+      </div>
+
+      <!-- language / quality row -->
+      <!-- ==========================================================
+           PLAYBACK CONTROLS  (v12.10)
+           Two pieces:
+             * .pc-bar      - a compact, fixed-height toolbar that is ALWAYS
+                              visible and whose contents never change, so it
+                              can never re-flow under the user's finger.
+             * #pcSettings  - the actual selects. Inline on desktop, a
+                              bottom sheet on phones/tablets.
+           Previously all five selects lived in one wrapping flex row. When a
+           stream resolved and the subtitle/audio controls appeared, the row
+           re-wrapped and every button jumped up to 288px sideways - which is
+           exactly why options moved away as they were being tapped.
+           ========================================================== -->
+      <div class="pc-row pc-lang-row">
+        <div class="pc-bar" id="pcBar">
+          <button class="pc-bar-btn pc-bar-settings" id="pcSettingsBtn" aria-expanded="false" aria-controls="pcSettings" data-i18n-title="playbackSettings" title="Playback settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.2.61.77 1.03 1.42 1.03H21a2 2 0 1 1 0 4h-.09c-.65 0-1.22.42-1.42 1.03z"/></svg>
+            <span class="pc-bar-txt" data-i18n="settingsShort">Settings</span>
+          </button>
+          <span class="pc-bar-summary" id="pcBarSummary" aria-live="polite"></span>
+          <span class="pc-bar-spacer"></span>
+          <span class="audio-track-status" id="audioTrackStatus"></span>
+          <button class="btn btn-ghost sm voice-boost-btn" id="pcVoiceBoost" data-i18n="voiceBoost">Voice Boost</button>
+          <!-- Direct playback uses our own <video> element, so quality,
+               language and speed all apply. Embedded is the provider's own
+               player: kept as a fallback and as a manual escape hatch. -->
+          <button class="btn btn-ghost sm" id="pcDirectToggle" data-i18n-title="directModeHint" title="Play in our own player when possible">
+            <span id="pcDirectLabel" data-i18n="directMode">Direct</span>
+          </button>
+          <button class="btn btn-ghost sm pc-bar-reload" id="pcReload" title="Reload player" data-i18n="reload">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+            <span class="pc-bar-txt">Reload</span>
+          </button>
+        </div>
+
+        <div class="pc-settings" id="pcSettings" role="group" aria-label="Playback settings">
+          <div class="pc-settings-head">
+            <span data-i18n="playbackSettings">Playback settings</span>
+            <button type="button" class="pc-settings-close" id="pcSettingsClose" aria-label="Close settings">&times;</button>
+          </div>
+          <div class="pc-lang-controls">
+<label class="lc-ctl" id="pcAudioControl">
+            <span data-i18n="preferredAudio">Preferred audio</span>
+            <select id="pcLang" class="pc-select" title="Requests this track from compatible players">
+              <option value="" data-i18n="preferredAudioAuto">Auto (provider default)</option>
+              <option value="hi">Hindi</option>
+            </select>
+          </label>
+          <label class="lc-ctl hidden" id="pcAnimeAudioControl">
+            <span data-i18n="animeAudio">Anime audio</span>
+            <select id="pcAnimeAudio" class="pc-select" aria-label="Anime audio track">
+              <option value="sub" data-i18n="animeSub">Subbed · original voices</option>
+              <option value="dub" data-i18n="animeDub">Dubbed · English voices</option>
+            </select>
+          </label>
+          <label class="lc-ctl" id="pcQualityControl">
+            <span data-i18n="quality">Quality</span>
+            <select id="pcQuality" class="pc-select" aria-label="Video quality">
+              <option value="auto">Auto</option>
+              <option value="2160">4K · 2160p</option>
+              <option value="1080">Full HD · 1080p</option>
+              <option value="720">HD · 720p</option>
+              <option value="480">SD · 480p</option>
+              <option value="360">Low · 360p</option>
+            </select>
+          </label>
+          <label class="lc-ctl" id="pcSubtitleControl">
+            <span data-i18n="subtitles">Subtitles</span>
+            <select id="pcSubtitle" class="pc-select" aria-label="Subtitle track">
+              <option value="off" data-i18n="subtitlesOff">Off</option>
+            </select>
+          </label>
+          <label class="lc-ctl" id="pcSpeedControl">
+            <span data-i18n="playbackSpeed">Playback speed</span>
+            <select id="pcSpeed" class="pc-select" aria-label="Playback speed">
+              <option value="0.5">0.5×</option>
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+                    </div>
+        </div>
+      </div>
+
+      <div class="pc-row pc-rec-row hidden" id="pcRecRow">
+        <div class="pc-sources-label rec-head-row">
+          <span data-i18n="youMayLike">You may also like</span>
+          <span class="rec-head-actions">
+            <button type="button" class="rec-toggle-btn" id="pcRecCollapse" data-i18n="collapse">Collapse</button>
+            <button type="button" class="rec-toggle-btn" id="pcRecHide" data-i18n="hide">Hide</button>
+          </span>
+        </div>
+        <div class="rec-row" id="pcRecRowInner"></div>
+      </div>
+
+      <div class="pc-row hidden" id="pcRecShowRow">
+        <button type="button" class="rec-toggle-btn" id="pcRecShow" data-i18n="showRecommendations">Show recommendations</button>
+      </div>
+
+      <div class="pc-episodes hidden" id="pcEpisodes">
+        <div class="pc-label">
+          <span data-i18n="episodes">Episodes</span>
+          <select id="pcSeason" class="pc-select" aria-label="Season"></select>
+        </div>
+        <div class="ep-chips" id="epChips"></div>
+      </div>
+
+      <div class="pc-row">
+        <div class="pc-sources-label"><span data-i18n="source">Source</span> <span class="pc-hint" data-i18n="sourceHint">(if one doesn't work, try another)</span></div>
+        <div class="source-chips" id="sourceChips"></div>
+      </div>
+
+      <div class="pc-row pc-foot-row">
+        <div class="pc-actions">
+          <button class="btn btn-ghost sm" id="pcPrev" data-i18n="prev">‹ Prev</button>
+          <button class="btn btn-ghost sm" id="pcNext" data-i18n="next">Next ›</button>
+          <button class="btn btn-ghost sm" id="pcDownload" title="Open the current source or title information" data-i18n="openSource">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Open source
+          </button>
+        </div>
+        <details class="pc-official">
+          <summary>Official streaming options (Netflix, Prime, JioHotstar…)</summary>
+          <div class="provider-grid" id="pcProviderGrid"></div>
+        </details>
+      </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIVE TV PLAYER ===== -->
+<div class="player-overlay hidden" id="livePlayerModal" role="dialog" aria-modal="true" aria-label="Live TV player">
+  <div class="player live-player">
+    <div class="player-top">
+      <div class="player-title" id="liveTitle">Live</div>
+      <div class="player-top-actions">
+        <button class="player-btn" id="liveFs" title="Fullscreen" aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        <button class="modal-close light" id="liveClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="live-stage">
+      <video id="liveVideo" class="live-video" playsinline controls></video>
+      <div class="live-loading hidden" id="liveLoading">
+        <div class="pl-spinner"></div>
+        <div class="pl-text">Connecting to channel…</div>
+      </div>
+    </div>
+    <div class="live-controls-bar">
+      <div class="lc-row">
+        <label class="lc-ctl">
+          <span data-i18n="speed">Speed</span>
+          <select id="liveSpeed" class="pc-select">
+            <option value="0.5">0.5×</option>
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1× (Normal)</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+        </label>
+        <label class="lc-ctl">
+          <span data-i18n="quality">Quality</span>
+          <select id="liveQuality" class="pc-select"><option value="-1">Auto</option></select>
+        </label>
+        <label class="lc-ctl hidden" id="liveSourceCtl">
+          <span data-i18n="source">Source</span>
+          <select id="liveSource" class="pc-select"></select>
+        </label>
+        <label class="lc-ctl">
+          <span data-i18n="voiceVolume">Voice Volume</span>
+          <select id="liveVoiceVolume" class="pc-select">
+            <option value="1">100%</option>
+            <option value="1.15">115%</option>
+            <option value="1.3" selected>130%</option>
+            <option value="1.5">150%</option>
+          </select>
+        </label>
+        <button class="btn btn-ghost sm" id="liveMute">
+          <svg id="liveMuteIcon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+          <span id="liveMuteText" data-i18n="mute">Mute</span>
+        </button>
+        <button class="btn btn-ghost sm" id="liveAudioEnhance" data-i18n="clearAudio">Clear audio</button>
+        <button class="btn btn-ghost sm" id="livePip" title="Picture-in-picture">PiP</button>
+      </div>
+      <div class="lc-meta" id="liveMeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS ===== -->
+<div class="modal-overlay hidden" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal settings-modal">
+    <button class="modal-close" id="settingsClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-body settings-body">
+      <h2 id="settingsTitle" class="modal-title" style="margin-top:0" data-i18n="settings">Settings</h2>
+
+      <div class="setting-row">
+        <label for="setUiLang" data-i18n="interfaceLanguage">Interface Language</label>
+        <select id="setUiLang" class="sv-select">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+        </select>
+        <span class="tiny-note" data-i18n="interfaceLanguageNote">Changes all website buttons, menus and messages.</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="setLang" data-i18n="contentLanguage">Content Language</label>
+        <select id="setLang" class="sv-select"></select>
+        <span class="tiny-note" data-i18n="contentLanguageNote">Titles and descriptions appear in this language where available.</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="setAudioLang" data-i18n="audioPreferenceSetting">Preferred Audio</label>
+        <select id="setAudioLang" class="sv-select">
+          <option value="">Auto</option>
+          <option value="hi">Hindi</option>
+          <option value="en">English</option>
+          <option value="ta">Tamil</option>
+          <option value="te">Telugu</option>
+        </select>
+        <span class="tiny-note" data-i18n="audioPreferenceSettingNote">Requests this audio from compatible players; unavailable dubs cannot be created by the site.</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="setQuality" data-i18n="quality">Quality</label>
+        <select id="setQuality" class="sv-select">
+          <option value="auto">Auto</option>
+          <option value="2160">4K · 2160p</option>
+          <option value="1080">Full HD · 1080p</option>
+          <option value="720">HD · 720p</option>
+          <option value="480">SD · 480p</option>
+          <option value="360">Low · 360p</option>
+        </select>
+        <span class="tiny-note" data-i18n="qualityNote">Applied on players that support a quality cap.</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="setAnimeAudio" data-i18n="animeAudio">Anime audio</label>
+        <select id="setAnimeAudio" class="sv-select">
+          <option value="sub">Subbed (original Japanese)</option>
+          <option value="dub">Dubbed</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label for="setShowRecs" data-i18n="recommendationsSetting">Recommendations while watching</label>
+        <select id="setShowRecs" class="sv-select">
+          <option value="1">Show</option>
+          <option value="0">Hide</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label for="setCountry" data-i18n="countryRegion">Country / Region</label>
+        <div class="setting-inline">
+          <select id="setCountry" class="sv-select"></select>
+          <button class="btn btn-ghost sm" id="setGeoBtn" data-i18n="autoDetect">Auto-detect</button>
+        </div>
+        <span class="tiny-note" data-i18n="countryNote">Used for official streaming options under the player.</span>
+      </div>
+
+      <div class="setting-row">
+        <label data-i18n="preferredSource">Preferred player source</label>
+        <select id="setSource" class="sv-select"></select>
+        <span class="tiny-note" data-i18n="sourceNote">Default embed source when you tap Watch.</span>
+      </div>
+
+      <!-- v12.14 : API self-test. OFF by default on purpose - it makes real
+           upstream requests, and nobody wants background traffic they did not
+           ask for. The manual "Run test now" button is always available. -->
+      <div class="setting-row">
+        <label for="setAutoTest" data-i18n="autoApiTest">Automatic API test</label>
+        <select id="setAutoTest" class="sv-select">
+          <option value="0" selected>Off (recommended)</option>
+          <option value="1">On — check APIs on startup</option>
+        </select>
+        <div class="setting-inline" style="margin-top:10px">
+          <button class="btn btn-ghost sm" id="setApiTestBtn" data-i18n="runApiTest">Run test now</button>
+        </div>
+        <div id="apiTestResult" class="api-test-result hidden"></div>
+        <span class="tiny-note" data-i18n="apiTestNote">Checks every content API (movies, series, anime, Hindi anime audio, live TV) against the real upstream. Off by default so no background requests are made.</span>
+      </div>
+
+      <div class="setting-row">
+        <label data-i18n="popupProtection">Popup &amp; ad protection</label>
+        <div class="setting-inline">
+          <button class="btn btn-ghost sm" id="setSandboxBtn">Off (best playback)</button>
+        </div>
+        <span class="tiny-note">
+          <b>Off</b> — best playback, fewer errors (we recommend this). Use a browser ad-blocker for ads.<br>
+          <b>On</b> — blocks popups &amp; new tabs from the player, but a few sources may refuse to load.
+        </span>
+      </div>
+
+      <div class="setting-row">
+        <label data-i18n="theme">Theme</label>
+        <button class="btn btn-ghost sm" id="setThemeBtn"></button>
+      </div>
+
+      <div class="setting-row brave-setting-card">
+        <div class="brave-setting-title"><span class="brave-mini-logo">🦁</span><span>Best experience</span></div>
+        <p class="tiny-note" id="setBraveStatus">Use Brave or any trusted ad blocker for faster, cleaner playback.</p>
+        <div class="setting-inline">
+          <button class="btn btn-play sm" id="setBraveBtn">Get Brave</button>
+          <button class="btn btn-ghost sm" id="setBravePromoBtn">Show recommendation</button>
+        </div>
+      </div>
+
+      <div class="section-label" data-i18n="cachedData">Cached data (this browser)</div>
+      <div id="usageBox"></div>
+      <div class="setting-inline" style="margin-top:10px">
+        <button class="btn btn-ghost sm" id="usageReset" data-i18n="resetStats">Reset stats</button>
+        <button class="btn btn-ghost sm" id="cacheClear" data-i18n="clearBrowserCache">Clear browser cache</button>
+      </div>
+
+      <!-- v12.13.1: everything lives in localStorage, so clearing browser data
+           wipes it. Give people a way to take it with them. -->
+      <div class="section-label" data-i18n="backupRestore">Backup &amp; restore</div>
+      <p class="tiny-note" data-i18n="backupNote">Your watchlist, playlists and progress live only in this browser. Export a file to keep them safe or move to another device.</p>
+      <div class="setting-inline" style="margin-top:10px">
+        <button class="btn btn-ghost sm" id="dataExport" data-i18n="exportData">Export my data</button>
+        <button class="btn btn-ghost sm" id="dataImport" data-i18n="importData">Import data</button>
+        <input type="file" id="dataImportFile" accept="application/json,.json" hidden />
+      </div>
+
+      <div id="backupInfo"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BRAVE / AD-BLOCKER RECOMMENDATION ===== -->
+<div class="brave-modal-overlay hidden" id="bravePromo" role="dialog" aria-modal="true" aria-labelledby="bravePromoTitle">
+  <div class="brave-promo-card">
+    <button class="modal-close light brave-promo-close" id="bravePromoClose" aria-label="Close recommendation">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="brave-promo-glow"></div>
+    <div class="brave-promo-icon">🦁</div>
+    <span class="brave-promo-kicker">BEST EXPERIENCE</span>
+    <h2 id="bravePromoTitle">Use Brave for a cleaner watch</h2>
+    <p id="bravePromoText">Brave includes ad and tracker blocking. A trusted ad blocker also works on normal browsers and can make embeds load more smoothly.</p>
+    <div class="brave-detected hidden" id="braveDetected">✓ You are using Brave — privacy protection is already active.</div>
+    <div class="brave-promo-actions">
+      <button class="btn btn-play" id="bravePrimaryBtn">Download Brave</button>
+      <button class="btn btn-ghost" id="braveConfirmBtn">Confirm</button>
+    </div>
+    <label class="brave-dont-show"><input type="checkbox" id="braveDontShow"> <span>Don't show again</span></label>
+    <div class="brave-stores" id="braveStores">
+      <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.brave.browser" target="_blank" rel="noopener">
+        <span class="store-icon">▶</span><span><small>GET IT ON</small><b>Google Play</b></span>
+      </a>
+      <a class="store-badge" href="https://apps.apple.com/us/app/brave-browser-search-engine/id1052879175" target="_blank" rel="noopener">
+        <span class="store-icon apple">●</span><span><small>DOWNLOAD ON THE</small><b>App Store</b></span>
+      </a>
+    </div>
+    <p class="brave-promo-note">Already using another browser? Keep it — Brave or a reliable content blocker both work.</p>
+  </div>
+</div>
+
+<!-- ===== PLAYLIST ADD MODAL ===== -->
+<div class="modal-overlay hidden" id="playlistModal" role="dialog" aria-modal="true" aria-label="Add to playlist">
+  <div class="modal playlist-modal">
+    <button class="modal-close" id="playlistModalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-body settings-body">
+      <h2 class="modal-title" id="plModalTitle">Add to playlist</h2>
+      <p class="tiny-note" id="plModalItem" style="margin-bottom:14px"></p>
+      <div id="plModalList" class="pl-modal-list"></div>
+      <button class="btn btn-ghost sm" id="plModalNew" style="margin-top:12px">+ Create new playlist</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST / TOP ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+</button>
+
+<noscript><div class="noscript">JavaScript is required to use StreamVerse.</div></noscript>
+<script src="app.js?v=12.14.1" defer></script>
+</body>
+</html>
